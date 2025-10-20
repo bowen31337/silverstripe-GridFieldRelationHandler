@@ -1,0 +1,34 @@
+---
+Name: gridfieldrelationhandler
+---
+# Backward compatibility class aliases for SilverStripe 4 code
+#
+# These aliases allow legacy code to continue using non-namespaced class names
+# while the new SilverStripe 5 module uses PSR-4 namespaced classes.
+#
+# Example legacy code that will continue to work:
+#   $handler = new GridFieldHasOneRelationHandler($object, 'Image');
+#
+# This will be automatically resolved to:
+#   Arillo\GridFieldRelationHandler\GridField\GridFieldHasOneRelationHandler
+
+SilverStripe\Core\Injector\Injector:
+  # Base class alias
+  GridFieldRelationHandler:
+    class: Arillo\GridFieldRelationHandler\GridField\GridFieldRelationHandler
+
+  # Has-one relationship handler alias
+  GridFieldHasOneRelationHandler:
+    class: Arillo\GridFieldRelationHandler\GridField\GridFieldHasOneRelationHandler
+
+  # Many relationship handler alias
+  GridFieldManyRelationHandler:
+    class: Arillo\GridFieldRelationHandler\GridField\GridFieldManyRelationHandler
+
+  # Helper class aliases for has_many relationships
+  GridFieldManyRelationHandler_HasManyList:
+    class: Arillo\GridFieldRelationHandler\GridField\GridFieldManyRelationHandler_HasManyList
+
+  # Helper class aliases for many_many relationships
+  GridFieldManyRelationHandler_ManyManyList:
+    class: Arillo\GridFieldRelationHandler\GridField\GridFieldManyRelationHandler_ManyManyList

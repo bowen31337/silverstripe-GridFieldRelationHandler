@@ -1,0 +1,41 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+LICENSE
+docs/
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Environment files
+.env*
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Dependencies (will be installed in container)
+vendor/
+node_modules/
+
+# Tests and coverage
+tests/
+coverage/
+.phpunit.result.cache
+
+# Build artifacts
+dist/
+build/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db

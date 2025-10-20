@@ -1,16 +1,34 @@
 ## GridFieldRelationHandler
 
-This module provides two [`GridField`](http://doc.silverstripe.org/framework/en/topics/grid-field) components
-that aid in managing relationships within [SilverStripe](http://www.silverstripe.org). The 
-[`GridFieldHasOneRelationHandler`](#gridfieldhasonerelationhandler) component allows a `SS_List` to be used to select the value of a has_one
+This module provides two [`GridField`](https://docs.silverstripe.org/en/5/developer_guides/forms/field_types/gridfield/) components
+that aid in managing relationships within [SilverStripe](http://www.silverstripe.org). The
+[`GridFieldHasOneRelationHandler`](#gridfieldhasonerelationhandler) component allows a `DataList` to be used to select the value of a has_one
 relation and the [`GridFieldManyRelationHandler`](#gridfieldmanyrelationhandler) component manages a `RelationList`.
 
-## Installation ##
+## Requirements
 
-If the version of SilverStripe you are running is earlier than 3.0.3, first apply [this patch](https://github.com/silverstripe/sapphire/commit/d2b4e0df01f82fdbe613890c8ae909af404640a5) to `GridFieldPaginator`.
+- SilverStripe Framework 5.0 or higher
+- PHP 8.1 or higher
 
-Download this module and extract it into your site's root folder. Flush your site's manifest by visiting
-http://yoursite.com/?flush=1. These components are now ready for use.
+## Installation
+
+Install via Composer:
+
+```bash
+composer require arillo/gridfieldrelationhandler
+```
+
+After installation, run `dev/build` to ensure the module is recognized:
+
+```bash
+vendor/bin/sake dev/build flush=1
+```
+
+## Upgrading from SilverStripe 4
+
+If you're upgrading from SilverStripe 4, please see [UPGRADING.md](UPGRADING.md) for migration instructions.
+
+This module maintains backward compatibility via class aliases, so existing code should continue to work without modifications.
 
 ## GridFieldHasOneRelationHandler ##
 
@@ -20,10 +38,29 @@ The `GridFieldHasOneRelationHandler` component provides radio buttons for select
 has_one points to. Its constructor takes the object the relation exists on, the name of the relation and
 an optional target fragment which describes the position of the save relation button.
 
-### Example ###
+### Example
 
-	:::php
-	$config->addComponent(new GridFieldHasOneRelationHandler($this, 'MainImage'));
+```php
+use Arillo\GridFieldRelationHandler\GridField\GridFieldHasOneRelationHandler;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig;
+
+// In your DataObject's getCMSFields method:
+$imagesGrid = GridField::create(
+    'Images',
+    'Select Main Image',
+    Image::get(),
+    GridFieldConfig::create()
+        ->addComponent(new GridFieldHasOneRelationHandler($this, 'MainImage'))
+);
+```
+
+For backward compatibility, you can also use the legacy class name without the namespace:
+
+```php
+// This works due to class aliases:
+$config->addComponent(new GridFieldHasOneRelationHandler($this, 'MainImage'));
+```
 
 ## GridFieldManyRelationHandler ##
 
@@ -36,11 +73,36 @@ the position of the save relation button.
 If your `GridField` also has a `GridFieldPaginator` component, this component must be inserted before
 it for the pagination to work properly.
 
-### Example ###
+### Example
 
-	:::php
-	// The second argument here ensures that this component is placed before any GridFieldPaginator
-	$config->addComponent(new GridFieldManyRelationHandler(), 'GridFieldPaginator');
+```php
+use Arillo\GridFieldRelationHandler\GridField\GridFieldManyRelationHandler;
+use SilverStripe\Forms\GridField\GridField;
+use SilverStripe\Forms\GridField\GridFieldConfig;
+use SilverStripe\Forms\GridField\GridFieldPaginator;
+
+// In your DataObject's getCMSFields method:
+$config = GridFieldConfig::create()
+    ->addComponent(new GridFieldManyRelationHandler())
+    ->addComponent(new GridFieldPaginator(20));
+
+$tagsGrid = GridField::create(
+    'Tags',
+    'Select Tags',
+    $this->Tags(),
+    $config
+);
+```
+
+Note: If your `GridField` has a `GridFieldPaginator` component, the `GridFieldManyRelationHandler`
+must be added before it for pagination to work properly.
+
+For backward compatibility, you can also use the legacy class name:
+
+```php
+// This works due to class aliases:
+$config->addComponent(new GridFieldManyRelationHandler());
+```
 
 ## License ##
 	

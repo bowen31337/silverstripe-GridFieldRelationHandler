@@ -1,17 +1,46 @@
 {
 	"name": "arillo/gridfieldrelationhandler",
+	"version": "3.0.0",
 	"description": "This module provides two GridField components that aid in managing relationships within SilverStripe.",
 	"type": "silverstripe-module",
 	"license": "BSD-3-Clause",
-	"keywords": ["silverstripe", "gridfield", "component"],
+	"keywords": ["silverstripe", "silverstripe5", "gridfield", "component", "relationships", "has-one", "has-many", "many-many", "cms"],
+	"homepage": "https://github.com/arillo/silverstripe-GridFieldRelationHandler",
 	"authors": [
 		{
 			"name": "Simon Welsh",
 			"homepage": "http://simon.geek.nz/",
-			"email": "simon@simon.geek.nz"
+			"email": "simon@simon.geek.nz",
+			"role": "Original Author"
+		},
+		{
+			"name": "Arillo",
+			"homepage": "https://arillo.net",
+			"role": "SilverStripe 5 Migration"
 		}
 	],
+	"support": {
+		"issues": "https://github.com/arillo/silverstripe-GridFieldRelationHandler/issues",
+		"source": "https://github.com/arillo/silverstripe-GridFieldRelationHandler"
+	},
 	"require": {
-		"silverstripe/framework": "~3.0"
-	}
+		"php": "^8.1",
+		"silverstripe/framework": "^5.0"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9.5",
+		"silverstripe/recipe-testing": "^3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Arillo\\GridFieldRelationHandler\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Arillo\\GridFieldRelationHandler\\Tests\\": "tests/php/"
+		}
+	},
+	"minimum-stability": "dev",
+	"prefer-stable": true
 }

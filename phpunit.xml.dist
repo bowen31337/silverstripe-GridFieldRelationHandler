@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
+         bootstrap="vendor/silverstripe/framework/tests/bootstrap.php"
+         colors="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         verbose="true">
+    <testsuites>
+        <testsuite name="GridFieldRelationHandler Test Suite">
+            <directory>tests/php</directory>
+        </testsuite>
+    </testsuites>
+
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <report>
+            <html outputDirectory="coverage/html"/>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+        </report>
+    </coverage>
+
+    <php>
+        <ini name="display_errors" value="1"/>
+        <ini name="error_reporting" value="-1"/>
+        <env name="SS_DATABASE_CLASS" value="MySQLDatabase"/>
+        <env name="SS_DATABASE_SERVER" value="db"/>
+        <env name="SS_DATABASE_USERNAME" value="root"/>
+        <env name="SS_DATABASE_PASSWORD" value="root"/>
+        <env name="SS_DATABASE_NAME" value="SS_gridfieldrelationhandler_test"/>
+        <env name="SS_ENVIRONMENT_TYPE" value="dev"/>
+    </php>
+</phpunit>
